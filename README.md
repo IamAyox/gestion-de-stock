@@ -1,8 +1,9 @@
-1-configure the database
+1-configure the database (.env file)
 
 2-run the command php artisan migrate --seed
 
 3-login:
+
     email : ayoub@gmail.com
     password: ayoub
     role: gerant
