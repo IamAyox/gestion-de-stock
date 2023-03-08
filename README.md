@@ -1,4 +1,4 @@
-1-configure the database
+1-configure the database (.env file)
 
 2-run the command php artisan migrate --seed
 
