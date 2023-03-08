@@ -47,17 +47,20 @@ Route::group(['middleware'=>'CheckRole:gérant','prefix'=>'gérant'],function(){
     Route::get('/gérantDash',function(){
         //redirect to the Dashboard blade page in the users/gerant/ folder
         return view('users.gérant.Dashboard');
+        // add other routes ...
     });
 });
 Route::group(['middleware'=>'CheckRole:caissier','prefix'=>'caissier'],function(){
     Route::get('/caissierDash',function(){
         //redirect to the Dashboard blade page in the users/caissier/ folder
         return view('users.caissier.Dashboard');
+        // add other routes ...
     });
 });
 Route::group(['middleware'=>'CheckRole:vendeur','prefix'=>'vendeur'],function(){
     Route::get('/vendeurDash',function(){
         //redirect to the Dashboard blade page in the users/vendeur/ folder
         return view('users.vendeur.Dashboard');
+        // add other routes ...
     });
 });
