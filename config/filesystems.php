@@ -29,7 +29,16 @@ return [
     */
 
     'disks' => [
-
+        'avatars' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/avatars'),
+            'throw' => false,
+        ],
+        'products' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/products'),
+            
+        ],
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
