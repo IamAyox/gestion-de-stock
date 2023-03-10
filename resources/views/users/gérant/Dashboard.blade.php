@@ -8,7 +8,7 @@
       <hr>
     <p class="card-text">
         <a href="users/create" class="btn btn-primary">Add user</a>
-        <a href="/gérant/products/create" class="btn btn-primary">Add Product</a>
+        <a href="{{route('products.index')}}" class="btn btn-primary">manager Product</a>
     </p>
   </div>
 </div>

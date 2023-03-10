@@ -8,14 +8,15 @@
                 <div class="card-header">{{ __('Add a New Product') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ url('gérant/products') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('products.update',$product->id) }}" enctype="multipart/form-data">
                         @csrf
-
+                        @method('PUT')
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Product name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" 
+                                name="name" value="{{ $product->name }}"  autocomplete="name" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -28,8 +29,9 @@
                             <label for="description" class="col-md-4 col-form-label text-md-end">{{ __('description') }}</label>
                             
                             <div class="col-md-6">
-                                <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" 
-                                name="description" value="{{ old('description') }}" required autocomplete="phone" autofocus></textarea>
+                                <textarea id="description" type="text" class="form-control px-1 @error('description') is-invalid @enderror"
+                                 name="description" value="{{ $product->description }}" required autocomplete="description"
+                                 autofocus>{{ $product->description }}</textarea>
                                 
                                 @error('description')
                                 <span class="invalid-feedback" role="alert">
@@ -42,7 +44,8 @@
                             <label for="price" class="col-md-4 col-form-label text-md-end">{{ __('price') }}</label>
 
                             <div class="col-md-6">
-                                <input id="price" type="number" step="0.01" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}"  autocomplete="price" autofocus>
+                                <input id="price" type="number" step="0.01" class="form-control @error('price') is-invalid @enderror" 
+                                name="price" value="{{ $product->price }}"  autocomplete="price" autofocus>
 
                                 @error('price')
                                     <span class="invalid-feedback" role="alert">
@@ -55,7 +58,8 @@
                             <label for="quantity" class="col-md-4 col-form-label text-md-end">{{ __('quantity') }}</label>
 
                             <div class="col-md-6">
-                                <input id="quantity" type="text" class="form-control @error('quantity') is-invalid @enderror" name="quantity" value="{{ old('quantity') }}"  autocomplete="quantity" autofocus>
+                                <input id="quantity" type="text" class="form-control @error('quantity') is-invalid @enderror" 
+                                name="quantity" value="{{ $product->quantity }}"  autocomplete="quantity" autofocus>
 
                                 @error('quantity')
                                     <span class="invalid-feedback" role="alert">
@@ -68,7 +72,8 @@
                             <label for="expiration_date" class="col-md-4 col-form-label text-md-end">{{ __('expiration_date') }}</label>
 
                             <div class="col-md-6">
-                                <input id="expiration_date" type="date" class="form-control @error('expiration_date') is-invalid @enderror" name="expiration_date" value="{{ old('expiration_date') }}" required autocomplete="expiration_date">
+                                <input id="expiration_date" type="date" class="form-control @error('expiration_date') is-invalid @enderror" 
+                                name="expiration_date" value="{{ $product->expiration_date }}" required autocomplete="expiration_date">
 
                                 @error('expiration_date')
                                     <span class="invalid-feedback" role="alert">
@@ -76,18 +81,25 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="row">
+                            <label for="image" class="col-md-4 col-form-label text-md-end"></label>
+                            <div class="col-2">
+                                <img src="http://127.0.0.1:8000/images/products/{{$product->image}}"  />
+                            </div>
+                            </div>
                         </div>
                         <div class="row mb-3">
                             <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('image') }}</label>
                             <div class="col-md-6">
-                        <input class="form-control @error('image') is-invalid @enderror" type="file" name="image" id="image"></div>
+                        <input class="form-control @error('image') is-invalid @enderror" type="file" name="image" 
+                        id="image" value="{{$product->image}}"></div>
                       
                     </div>
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4 text-center">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Add') }}
+                                    {{ __('Update') }}
                                 </button>
                             </div>
                         </div>

@@ -46,27 +46,21 @@ Route::get('/home',function(){
 
 //each group is protected by the middleware checkRole
 Route::group(['middleware'=>'CheckRole:gérant','prefix'=>'gérant'],function(){
-    Route::get('/gérantDash',function(){
-        //redirect to the Dashboard blade page in the users/gerant/ folder
-        return view('users.gérant.Dashboard');
-    });
+    Route::view('/gérantDash','users.gérant.Dashboard');
     Route::resource('users',UsersController::class);
     Route::resource('products',ProductController::class);
 });
+
 Route::group(['middleware'=>'CheckRole:caissier','prefix'=>'caissier'],function(){
-    Route::get('/caissierDash',function(){
-        //redirect to the Dashboard blade page in the users/caissier/ folder
-        return view('users.caissier.Dashboard');
-        // add other routes ...
-    });
+    Route::view('/caissierDash','users.caissier.Dashboard');
 });
+
 Route::group(['middleware'=>'CheckRole:vendeur','prefix'=>'vendeur'],function(){
-    Route::get('/vendeurDash',function(){
-        //redirect to the Dashboard blade page in the users/vendeur/ folder
-        return view('users.vendeur.Dashboard');
-        // add other routes ...
-    });
+    Route::view('/vendeurDash','users.vendeur.Dashboard');
 });
+
+
+
 
 //images access route
 Route::get('/images/users/{filename}',function($filename){

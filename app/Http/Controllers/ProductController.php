@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\product\StoreProductRequest;
+use App\Http\Requests\product\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 
@@ -38,6 +39,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
+
         $img = time()."_".$request->file('image')->getClientOriginalName();
         // dd($img);
         $imgPath = $request->file('image')->storeAs('/public/products', $img);
@@ -56,7 +58,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('users.gérant.products.ShowProduct',compact('product'));
     }
 
     /**
@@ -67,7 +70,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product =  Product::findOrFail($id);
+        // dd($product);
+        return view('users.gérant.products.EditProduct',compact('product'));
     }
 
     /**
@@ -77,9 +82,22 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, $id)
     {
-        //
+        $product =  Product::findOrFail($id);
+        if($request->hasFile('image')){
+            $oldImgName = explode('_',$product->image);
+            $isChanged = $request->file('image')->getClientOriginalName() != $oldImgName[1];
+            if($isChanged){
+                $img = time()."_".$request->file('image')->getClientOriginalName();
+                $request->file('image')->storeAs('/public/products/',$img);
+                $res = array_merge($request->validated(),['image'=>$img]);
+            }
+        }else{
+            $res = $request->except('image');
+        }
+        $product->update($res);
+        return redirect(route('products.index'));
     }
 
     /**
@@ -90,6 +108,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product =  Product::findOrFail($id);
+        $product->delete();
+        return back();
     }
 }
