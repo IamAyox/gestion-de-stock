@@ -29,7 +29,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('users.gérant.CreateAccount');
+        return view('users.gérant.members.CreateAccount');
     }
 
     /**
@@ -47,7 +47,7 @@ class UsersController extends Controller
         'role' => $request->role,
         'password' => Hash::make($request->password)]
     );
-        return redirect('gérant/gérantDash');
+        return redirect('gérant');
     }
 
     /**
@@ -56,9 +56,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return view('users.gérant.members.Show',compact('user'));
     }
 
     /**
