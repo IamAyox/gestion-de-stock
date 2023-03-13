@@ -5,17 +5,18 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Add a New Member') }}</div>
+                <div class="card-header">{{ __('Edit user') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ url('gérant/users') }}">
+                    <form method="POST" action="{{ route('users.update',$user->id)}}">
                         @csrf
-
+                        @method('PUT')
+                        <input type="hidden" name="id" value="{{$user->id}}"/>
                         <div class="row mb-3">
                             <label for="nom" class="col-md-4 col-form-label text-md-end">{{ __('Nom') }}</label>
 
                             <div class="col-md-6">
-                                <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{ old('nom') }}"  autocomplete="nom" autofocus>
+                                <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{ $user->nom }}"  autocomplete="nom" autofocus>
 
                                 @error('nom')
                                     <span class="invalid-feedback" role="alert">
@@ -28,7 +29,7 @@
                             <label for="prenom" class="col-md-4 col-form-label text-md-end">{{ __('Prenom') }}</label>
 
                             <div class="col-md-6">
-                                <input id="prenom" type="text" class="form-control @error('prenom') is-invalid @enderror" name="prenom" value="{{ old('prenom') }}"  autocomplete="prenom" autofocus>
+                                <input id="prenom" type="text" class="form-control @error('prenom') is-invalid @enderror" name="prenom" value="{{ $user->prenom }}"  autocomplete="prenom" autofocus>
 
                                 @error('prenom')
                                     <span class="invalid-feedback" role="alert">
@@ -41,7 +42,7 @@
                             <label for="phone" class="col-md-4 col-form-label text-md-end">{{ __('Telephone') }}</label>
 
                             <div class="col-md-6">
-                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ $user->phone }}" required autocomplete="phone" autofocus>
 
                                 @error('phone')
                                     <span class="invalid-feedback" role="alert">
@@ -54,7 +55,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -68,39 +69,17 @@
                                 {{ __('Role') }}</label>
 
                             <div class="col-md-6">
-                                <select name="role"  value="{{ old('email') }}" class="form-select">
-                                    <option vlaue="gérant">gérant</option>
-                                    <option vlaue="vendeur">vendeur</option>
-                                    <option vlaue="caissier">caissier</option>
+                                <select name="role"  value="{{ $user->role }}" class="form-select">
+                                <option value="gérant" {{ $user->role == 'gérant' ? 'selected' : '' }}>gérant</option>
+                                <option value="vendeur" {{ $user->role == 'vendeur' ? 'selected' : '' }}>vendeur</option>
+                                <option value="caissier" {{ $user->role == 'caissier' ? 'selected' : '' }}>caissier</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Update') }}
                                 </button>
                             </div>
                         </div>

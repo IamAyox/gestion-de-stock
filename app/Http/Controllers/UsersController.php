@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\user\StoreUserRequest;
+use App\Http\Requests\user\UpdateUserRequest;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -17,7 +18,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::where('role','<>','gérant')->get();
+        return  view('users.gérant.members.index',compact('users'));
     }
 
     /**
@@ -67,7 +69,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('users.gérant.members.Edit',compact('user'));
     }
 
     /**
@@ -77,9 +80,11 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->update($request->validated());
+        return redirect(route('users.index'));
     }
 
     /**
@@ -90,6 +95,8 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return back();
     }
 }

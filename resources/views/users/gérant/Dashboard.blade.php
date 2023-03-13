@@ -1,4 +1,4 @@
-@extends('dash')
+@extends('layouts.dash')
 
 @section('content')
 <div class="card container" style="width: 26rem;">
@@ -7,8 +7,8 @@
   <div class="card-body">
       <hr>
     <p class="card-text">
-        <a href="users/create" class="btn btn-primary">Add user</a>
-        <a href="{{route('products.index')}}" class="btn btn-primary">manager Product</a>
+        <a href="{{route('users.index')}}" class="btn btn-primary">Manage Users</a>
+        <a href="{{route('products.index')}}" class="btn btn-primary">Manage Products</a>
     </p>
   </div>
 </div>
