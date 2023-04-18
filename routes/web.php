@@ -39,6 +39,7 @@ Route::group(['middleware'=>'CheckRole:gérant','prefix'=>'gérant'],function(){
     Route::resource('products',ProductController::class);
 });
 
+
 Route::group(['middleware'=>'CheckRole:caissier','prefix'=>'caissier'],function(){
     Route::view('/','users.caissier.Dashboard');
 });
